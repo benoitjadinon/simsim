@@ -296,6 +296,7 @@
         NSDictionary* applicationPlist = [NSDictionary dictionaryWithContentsOfFile:applicationPlistPath];
         
         NSString* applicationVersion = applicationPlist[@"CFBundleVersion"];
+        NSString* applicationShortVersion = applicationPlist[@"CFBundleShortVersionString"];
         NSString* applicationBundleName = applicationPlist[@"CFBundleName"];
         
         if (applicationBundleName.length == 0)
@@ -308,7 +309,7 @@
         metadata = [NSMutableDictionary new];
         
         metadata[@"applicationBundleName"] = applicationBundleName;
-        metadata[@"applicationVersion"] = applicationVersion;
+        metadata[@"applicationVersion"] = [applicationVersion isEqualToString:@"0.0"] && applicationShortVersion.length > 0 ? applicationShortVersion : applicationVersion;
         metadata[@"applicationIcon"] = icon;
     }];
     
